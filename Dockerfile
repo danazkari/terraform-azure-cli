@@ -1,8 +1,10 @@
 FROM golang:alpine
-MAINTAINER "Remko Seelig <r.seelig@devon.nl>"
+MAINTAINER "Daniel Prado <danazkari@gmail.com>"
+
+ARG BUILD_TERRAFORM_VERSION=0.11.13
 
 # Configure the Terraform version here
-ENV TERRAFORM_VERSION=0.10.8
+ENV TERRAFORM_VERSION=$BUILD_TERRAFORM_VERSION
 
 RUN apk add --update git bash openssh
 
