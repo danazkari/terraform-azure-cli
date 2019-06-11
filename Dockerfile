@@ -30,5 +30,7 @@ RUN unzip /terraform.zip -d /usr/bin/ \
   && chmod +x /usr/bin/terraform \
   && rm /terraform.zip
 
+RUN apk add bash --no-cache
+
 # Start in root's home
 WORKDIR /root
