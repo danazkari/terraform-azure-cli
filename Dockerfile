@@ -1,7 +1,7 @@
 FROM alpine
 MAINTAINER "Daniel Prado <danazkari@gmail.com>"
 
-ARG BUILD_TERRAFORM_VERSION=0.11.13
+ARG BUILD_TERRAFORM_VERSION=0.11.14
 
 # Configure the Terraform version here
 ENV TERRAFORM_VERSION=$BUILD_TERRAFORM_VERSION
