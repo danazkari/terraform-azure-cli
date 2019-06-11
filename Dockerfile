@@ -19,11 +19,6 @@ RUN apk update \
   && pip install --no-cache-dir azure-cli \
   && apk del --purge .build-deps
 
-ENV TF_DEV=true
-ENV TF_RELEASE=true
-
-WORKDIR /
-
 ADD https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip /terraform.zip
 
 RUN unzip /terraform.zip -d /usr/bin/ \
