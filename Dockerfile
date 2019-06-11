@@ -8,10 +8,10 @@ ENV TERRAFORM_VERSION=$BUILD_TERRAFORM_VERSION
 
 # install azure cli
 RUN apk update \
+  && apk add bash py-pip ca-certificates --no-cache \
   && apk add --virtual=.build-deps --no-cache \
   gcc \
   make \
-  py-pip \
   libffi-dev \
   musl-dev \
   openssl-dev \
@@ -29,8 +29,6 @@ ADD https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TE
 RUN unzip /terraform.zip -d /usr/bin/ \
   && chmod +x /usr/bin/terraform \
   && rm /terraform.zip
-
-RUN apk add bash py-pip --no-cache
 
 # Start in root's home
 WORKDIR /root
