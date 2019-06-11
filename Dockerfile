@@ -1,4 +1,4 @@
-FROM golang:alpine
+FROM alpine
 MAINTAINER "Daniel Prado <danazkari@gmail.com>"
 
 ARG BUILD_TERRAFORM_VERSION=0.11.13
@@ -6,11 +6,12 @@ ARG BUILD_TERRAFORM_VERSION=0.11.13
 # Configure the Terraform version here
 ENV TERRAFORM_VERSION=$BUILD_TERRAFORM_VERSION
 
-RUN apk add git bash openssh py-pip make --no-cache --virtual=.terraform-build-deps
-
 # install azure cli
-RUN apk add --virtual=.build-deps --no-cache \
+RUN apk update \
+  && apk add --virtual=.build-deps --no-cache \
   gcc \
+  make \
+  py-pip \
   libffi-dev \
   musl-dev \
   openssl-dev \
@@ -21,12 +22,13 @@ RUN apk add --virtual=.build-deps --no-cache \
 ENV TF_DEV=true
 ENV TF_RELEASE=true
 
-WORKDIR $GOPATH/src/github.com/hashicorp/terraform
-RUN git clone https://github.com/hashicorp/terraform.git ./ && \
-  git checkout v${TERRAFORM_VERSION} && \
-  /bin/bash scripts/build.sh && \
-  apk del --purge .terraform-build-deps \
-  rm -rf $GOPATH/src/github.com/hashicor/terraform
+WORKDIR /
+
+ADD https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip /terraform.zip
+
+RUN unzip /terraform.zip -d /usr/bin/ \
+  && chmod +x /usr/bin/terraform \
+  && rm /terraform.zip
 
 # Start in root's home
 WORKDIR /root
