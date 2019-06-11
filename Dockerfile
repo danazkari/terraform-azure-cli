@@ -25,7 +25,8 @@ WORKDIR $GOPATH/src/github.com/hashicorp/terraform
 RUN git clone https://github.com/hashicorp/terraform.git ./ && \
   git checkout v${TERRAFORM_VERSION} && \
   /bin/bash scripts/build.sh && \
-  apk del --purge .terraform-build-deps
+  apk del --purge .terraform-build-deps \
+  rm -rf $GOPATH/src/github.com/hashicor/terraform
 
 # Start in root's home
 WORKDIR /root
