@@ -16,7 +16,7 @@ RUN apk update \
   musl-dev \
   openssl-dev \
   python-dev \
-  && pip install --no-cache-dir azure-cli \
+  && pip install --no-cache-dir "azure-cli==2.0.67" \
   && apk del --purge .build-deps
 
 ADD https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip /terraform.zip
